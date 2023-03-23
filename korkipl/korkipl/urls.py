@@ -15,7 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from korki import views
 
 urlpatterns = [
+    path('homepage/', views.homepage),
+    path('login/', views.login),
+    path('tutor/', views.tutor),
+    path('publications/', views.publications),
     path('admin/', admin.site.urls),
 ]
