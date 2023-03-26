@@ -13,6 +13,11 @@ def login(request):
     return render(request, 'login.html', context)
 
 
+def register(request):
+    context = {}
+    return render(request, 'register.html', context)
+
+
 def tutor(request):
     context = {}
     return render(request, 'tutor.html', context)
