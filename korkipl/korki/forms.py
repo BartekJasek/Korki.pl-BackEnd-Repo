@@ -1,5 +1,5 @@
 from django import forms
-from .models import Tutor, Publications, City
+from .models import Tutor, Publications, City, Subject
 from django.forms import ModelForm
 
 

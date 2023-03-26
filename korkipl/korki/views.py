@@ -1,4 +1,8 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
+
+from .forms import Tutor, Publications
+
 
 # Create your views here.
 
@@ -14,8 +18,13 @@ def login(request):
 
 
 def register(request):
-    context = {}
-    return render(request, 'register.html', context)
+    if request.method == 'POST':
+        tutorform = Tutor(request.POST)
+        if tutorform.is_valid():
+            return HttpResponseRedirect('/You have been registered!/')
+    else:
+        form = Tutor()
+    return render(request, 'register.html', {'tutorform': tutorform})
 
 
 def tutor(request):
