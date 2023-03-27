@@ -20,7 +20,7 @@ from korki import views
 urlpatterns = [
     path('homepage/', views.homepage),
     path('login/', views.login),
-    path('tutor/', views.tutor),
+    path('tutor/<int:tutor_id>', views.tutor),
     path('publications/', views.publications),
     path('admin/', admin.site.urls),
 ]

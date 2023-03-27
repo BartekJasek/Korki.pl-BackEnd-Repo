@@ -1,5 +1,5 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 from .forms import Tutor, Publications
 
@@ -28,8 +28,9 @@ def register(request):
 
 
 def tutor(request):
-    context = {}
-    return render(request, 'tutor.html', context)
+    def get(self, request, tutor_id):
+        tutor = get_object_or_404(Tutor, id=tutor_id)
+        return render(request, "tutor.html", {"tutor": tutor})
 
 def publications(request):
     context = {}
