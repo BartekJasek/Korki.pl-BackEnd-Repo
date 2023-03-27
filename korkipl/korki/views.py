@@ -23,7 +23,7 @@ def register(request):
         if tutorform.is_valid():
             return HttpResponseRedirect('/You have been registered!/')
     else:
-        form = Tutor()
+        tutorform = Tutor()
     return render(request, 'register.html', {'tutorform': tutorform})
 
 
@@ -34,3 +34,13 @@ def tutor(request):
 def publications(request):
     context = {}
     return render(request, 'publications.html', context)
+
+
+def addpublication(request):
+    if request.method == 'POST':
+        publicationform = Publications(request.POST)
+        if publicationform.is_valid():
+            return HttpResponseRedirect('/You have been registered!/')
+    else:
+        publicationform = Tutor()
+    return render(request, 'addpublication.html', {'publicationform': publicationform})
