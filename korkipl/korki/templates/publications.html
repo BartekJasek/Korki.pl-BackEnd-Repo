@@ -1,5 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
+{% for publication in publications %}
+        <div>
+            <h2>Korepetytor :</h2>
+            <p><b>Przedmiot: </b>{{ publication.subject }}</p>
+            <p><b>Cena: </b>{{ publication.price }}</p>
+            <p><b>Korepetytor: </b>{{ publication.tutor }}</p>
+            <p><b>Miasto: </b>{{ publication.city }}</p>
+        </div>
+    {% endfor %}
 {% endblock %}

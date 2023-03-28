@@ -2,7 +2,8 @@
 
 {% block content %}
     <h2>Korepetytor :</h2>
-    <p><b>Imię i Nazwisko: </b>{{ tutor.nameandsurname }}</p>
+    <p><b>Imię</b>{{ tutor.name }}</p>
+    <p><b>Nazwisko</b>{{ tutor.surname }}</p>
     <p><b>O mnie: </b>{{ tutor.experience }}</p>
     <p><b>Kontakt: </b>{{ tutor.contact }}</p>
 {% endblock %}

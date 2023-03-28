@@ -38,8 +38,10 @@ def tutor(request):
         tutor = get_object_or_404(Tutor, id=tutor_id)
         return render(request, "tutor.html", {"tutor": tutor})
 
+
 def publications(request):
-    context = {}
+    publications = get_object_or_404(Publications)
+    context = {'publications': publications}
     return render(request, 'publications.html', context)
 
 
@@ -47,10 +49,10 @@ def addpublication(request):
     if request.method == 'POST':
         publicationform = Publications(request.POST)
         if publicationform.is_valid():
-            price = publicationform.cleaned_data['name']
-            subject = publicationform.cleaned_data['surname']
-            tutor = publicationform.cleaned_data['experience']
-            city = publicationform.cleaned_data['contact']
+            price = publicationform.cleaned_data['price']
+            subject = publicationform.cleaned_data['subject']
+            tutor = publicationform.cleaned_data['tutor']
+            city = publicationform.cleaned_data['city']
             publication = Publications.objects.create(
                 price=price, subject=subject, tutor=tutor, city=city)
             return HttpResponseRedirect('/publications/')

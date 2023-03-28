@@ -18,7 +18,7 @@ from django.urls import path
 from korki import views
 
 urlpatterns = [
-    path('homepage/', views.homepage),
+    path('', views.homepage),
     path('login/', views.login),
     path('tutor/<int:tutor_id>', views.tutor),
     path('publications/', views.publications),
