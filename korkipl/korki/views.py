@@ -21,6 +21,12 @@ def register(request):
     if request.method == 'POST':
         tutorform = Tutor(request.POST)
         if tutorform.is_valid():
+            name = tutorform.cleaned_data['name']
+            surname = tutorform.cleaned_data['surname']
+            experience = tutorform.cleaned_data['experience']
+            contact = tutorform.cleaned_data['contact']
+            tutor = Tutor.objects.create(
+                name=name, surname=surname, experience=experience, contact=contact)
             return HttpResponseRedirect('/login/')
     else:
         tutorform = Tutor()
@@ -41,7 +47,13 @@ def addpublication(request):
     if request.method == 'POST':
         publicationform = Publications(request.POST)
         if publicationform.is_valid():
-            return HttpResponseRedirect('/You have been registered!/')
+            price = publicationform.cleaned_data['name']
+            subject = publicationform.cleaned_data['surname']
+            tutor = publicationform.cleaned_data['experience']
+            city = publicationform.cleaned_data['contact']
+            publication = Publications.objects.create(
+                price=price, subject=subject, tutor=tutor, city=city)
+            return HttpResponseRedirect('/publications/')
     else:
-        publicationform = Tutor()
-    return render(request, 'addpublication.html', {'publicationform': publicationform})
+        publicationform = Publications()
+    return render(request, 'register.html', {'publicationform': publicationform})

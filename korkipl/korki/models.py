@@ -42,5 +42,5 @@ class City(models.Model):
 class Publications(models.Model):
     price = models.IntegerField
     subject = models.ManyToManyField(Subject)
-    name = models.ForeignKey(Tutor, on_delete=models.CASCADE)
+    tutor = models.ForeignKey(Tutor, on_delete=models.CASCADE)
     city = models.OneToOneField(City, on_delete=models.CASCADE)
