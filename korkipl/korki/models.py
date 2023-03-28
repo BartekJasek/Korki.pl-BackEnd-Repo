@@ -20,9 +20,10 @@ SUBJECTS = (
 
 
 class Tutor(models.Model):
-    nameandsurname = models.CharField(max_length=64)
-    experience = models.CharField
-    contact = models.IntegerField(max_length=9)
+    name = models.CharField(max_length=64)
+    surname = models.CharField(max_length=64)
+    experience = models.CharField(max_length=2000)
+    contact = models.IntegerField()
 
 
 class Subject(models.Model):
@@ -35,11 +36,11 @@ class Calendar(models.Model):
 
 class City(models.Model):
     city = models.CharField(max_length=32)
-    zipcode = models.IntegerField(max_length=5)
+    zipcode = models.IntegerField
 
 
 class Publications(models.Model):
     price = models.IntegerField
-    subject = models.ManyToManyField(Subject, through="Przedmiot")
+    subject = models.ManyToManyField(Subject)
     name = models.ForeignKey(Tutor, on_delete=models.CASCADE)
-    city = models.OneToOneField(City, through="Przedmiot", on_delete=models.CASCADE)
+    city = models.OneToOneField(City, on_delete=models.CASCADE)

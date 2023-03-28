@@ -21,7 +21,7 @@ def register(request):
     if request.method == 'POST':
         tutorform = Tutor(request.POST)
         if tutorform.is_valid():
-            return HttpResponseRedirect('/You have been registered!/')
+            return HttpResponseRedirect('/login/')
     else:
         tutorform = Tutor()
     return render(request, 'register.html', {'tutorform': tutorform})
