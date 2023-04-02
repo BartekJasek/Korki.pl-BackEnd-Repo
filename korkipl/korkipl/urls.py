@@ -14,14 +14,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from korki import views
 
 urlpatterns = [
-    path('', views.homepage),
+    path('', include("django.contrib.auth.urls")),
+    path('', views.homepage,),
     path('login/', views.login),
     path('tutor/<int:tutor_id>', views.tutor),
     path('publications/', views.publications),
+    path('addpublication/', views.addpublication),
     path('register/', views.register),
     path('admin/', admin.site.urls),
 ]

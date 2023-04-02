@@ -8,8 +8,22 @@
     </head>
     <body>
         <h1>Korki.pl</h1>
+        {% if user.is_authenticated %}
+        <span>Zalogowano jako {{user.username}}</span>
+            <a href="/logout">Logout</a>
+        {% endif %}
         <div>
-
+            <a href="/publications">
+                <button type="button">Ogłoszenia</button>
+            </a>
+            <a href="/login/">
+                <button type="button">Logowanie</button>
+            </a>
+        {% if user.is_authenticated %}
+            <a href="/addpublication/">
+                <button type="button">Dodaj ogłoszenie!</button>
+            </a>
+        {% endif %}
         </div>
         {% block content %}{% endblock %}
     </body>

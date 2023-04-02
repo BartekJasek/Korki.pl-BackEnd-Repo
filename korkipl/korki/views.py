@@ -1,7 +1,8 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
+from django.contrib.auth import login, logout, authenticate
 
-from .forms import Tutor, Publications
+from .forms import RegisterForm, Publications
 
 
 # Create your views here.
@@ -12,25 +13,16 @@ def homepage(request):
     return render(request, 'homepage.html', context)
 
 
-def login(request):
-    context = {}
-    return render(request, 'login.html', context)
-
-
 def register(request):
     if request.method == 'POST':
-        tutorform = Tutor(request.POST)
+        tutorform = RegisterForm(request.POST)
         if tutorform.is_valid():
-            name = tutorform.cleaned_data['name']
-            surname = tutorform.cleaned_data['surname']
-            experience = tutorform.cleaned_data['experience']
-            contact = tutorform.cleaned_data['contact']
-            tutor = Tutor.objects.create(
-                name=name, surname=surname, experience=experience, contact=contact)
-            return HttpResponseRedirect('/login/')
+            user = tutorform.save()
+            login(request, user)
+            return redirect('/login/')
     else:
-        tutorform = Tutor()
-    return render(request, 'register.html', {'tutorform': tutorform})
+        tutorform = RegisterForm()
+    return render(request, 'registration/sign_up.html', {'tutorform': tutorform})
 
 
 def tutor(request):
@@ -40,7 +32,7 @@ def tutor(request):
 
 
 def publications(request):
-    publications = get_object_or_404(Publications)
+    publications = Publications.objects.get.all
     context = {'publications': publications}
     return render(request, 'publications.html', context)
 
@@ -58,4 +50,4 @@ def addpublication(request):
             return HttpResponseRedirect('/publications/')
     else:
         publicationform = Publications()
-    return render(request, 'register.html', {'publicationform': publicationform})
+    return render(request, 'addpublication.html', {'publicationform': publicationform})
