@@ -1,6 +1,6 @@
 {% load static %}
 
-<!Doctype html>
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
@@ -13,15 +13,22 @@
             <a href="/logout">Logout</a>
         {% endif %}
         <div>
+        {% if user.is_authenticated %}
+            <a href="/addpublication/">
+                <button type="button">Dodaj ogłoszenie!</button>
+            </a>
+            <a href="/password_change/">
+                <button type="button">Zmień hasło</button>
+            </a>
+            <a href="/addtutorinfo/">
+                <button type="button">Dodaj informacje o sobie</button>
+            </a>
+        {% else %}
             <a href="/publications">
                 <button type="button">Ogłoszenia</button>
             </a>
             <a href="/login/">
                 <button type="button">Logowanie</button>
-            </a>
-        {% if user.is_authenticated %}
-            <a href="/addpublication/">
-                <button type="button">Dodaj ogłoszenie!</button>
             </a>
         {% endif %}
         </div>

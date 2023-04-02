@@ -1,4 +1,7 @@
 from django.db import models
+from phonenumber_field.modelfields import PhoneNumberField
+from django.contrib.auth.models import User
+from django.core.validators import RegexValidator
 
 # Create your models here.
 
@@ -20,14 +23,24 @@ SUBJECTS = (
 
 
 class Tutor(models.Model):
-    name = models.CharField(max_length=64)
-    surname = models.CharField(max_length=64)
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        primary_key=True,
+    )
     experience = models.CharField(max_length=2000)
-    contact = models.IntegerField()
+    phone = PhoneNumberField(null=False, blank=False, unique=True)
+    facebook_url = models.URLField(max_length=500)
+
+    def __str__(self):
+        return self.user
 
 
 class Subject(models.Model):
     subject = models.IntegerField(choices=SUBJECTS)
+
+    def __str__(self):
+        return self.subject
 
 
 class Calendar(models.Model):
@@ -36,11 +49,14 @@ class Calendar(models.Model):
 
 class City(models.Model):
     city = models.CharField(max_length=32)
-    zipcode = models.IntegerField
+    postcode = models.CharField(
+        max_length=6,
+        validators=[RegexValidator('^[0-9]{5}$')],
+    )
 
 
 class Publications(models.Model):
-    price = models.IntegerField
+    price = models.IntegerField()
     subject = models.ManyToManyField(Subject)
-    tutor = models.ForeignKey(Tutor, on_delete=models.CASCADE)
+    tutor = models.ForeignKey(User, on_delete=models.CASCADE)
     city = models.OneToOneField(City, on_delete=models.CASCADE)

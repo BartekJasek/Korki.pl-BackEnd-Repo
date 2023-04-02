@@ -19,11 +19,12 @@ from korki import views
 
 urlpatterns = [
     path('', include("django.contrib.auth.urls")),
-    path('', views.homepage,),
+    path('', views.Homepage,),
     path('login/', views.login),
-    path('tutor/<int:tutor_id>', views.tutor),
-    path('publications/', views.publications),
-    path('addpublication/', views.addpublication),
-    path('register/', views.register),
+    path('tutor/<int:tutor_id>', views.Tutor),
+    path('publications/', views.Publications),
+    path('addpublication/', views.AddPublication),
+    path('addtutorinfo/', views.AddTutorInfo),
+    path('register/', views.Register),
     path('admin/', admin.site.urls),
 ]
