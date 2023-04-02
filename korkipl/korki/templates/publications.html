@@ -4,8 +4,8 @@
 {% for publication in publications %}
         <div>
             <p><b>Przedmiot: </b>{{ publication.subject }}</p>
-            <p><b>Cena: </b>{{ publication.price }}</p>
-            <p><b>Korepetytor: </b>{{ publication.tutor }}</p><a href="/tutor/{{publications.tutor.id}}"><button type="button">O mnie</button></a>
+            <p><b>Cena: </b>{{ publication.price }} zł</p>
+            <p><b>Korepetytor: </b>{{ publication.tutor }}</p><a href="/tutor/{{publications.tutor.user.id}}"><button type="button">O mnie</button></a>
             <p><b>Miasto: </b>{{ publication.city }}</p>
         </div>
     {% endfor %}

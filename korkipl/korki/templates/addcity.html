@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<p>W jakim mieście udzielasz korepetycji?</p>
+<form method="post">
+    {% csrf_token %}
+    {{ cityform }}
+    <input type="submit" value="Submit">
+</form>
+{% endblock %}

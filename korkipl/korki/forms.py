@@ -1,9 +1,9 @@
 from django import forms
-from phonenumber_field.formfields import PhoneNumberField
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.forms import ModelForm
-from .models import Publications, Tutor, City
+from .models import Publications, Tutor
+from localflavor.pl.forms import PLPostalCodeField
 
 
 class RegisterForm(UserCreationForm):
@@ -21,13 +21,13 @@ class TutorForm(ModelForm):
         model = Tutor
         fields = ('user', 'experience', 'phone', 'facebook_url')
 
+
 class PublicationForm(ModelForm):
     class Meta:
         model = Publications
         fields = ('price', 'subject', 'tutor', 'city')
 
 
-class CityForm(ModelForm):
-    class Meta:
-        model = City
-        fields = ('city', 'postcode')
+class CityForm(forms.Form):
+    city = forms.CharField(max_length=30)
+    postcode = PLPostalCodeField()

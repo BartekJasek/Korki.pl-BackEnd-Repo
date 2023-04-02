@@ -3,8 +3,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 
-from .forms import RegisterForm, PublicationForm, TutorForm
-from .models import Publications
+from .forms import RegisterForm, PublicationForm, TutorForm, CityForm
+from .models import Publications, City
 
 
 # Create your views here.
@@ -37,6 +37,21 @@ def Publications(request):
     publications = Publications.objects.get.all
     context = {'publications': publications}
     return render(request, 'publications.html', context)
+
+
+@login_required(login_url='/login')
+def AddCity(request):
+    if request.method == 'POST':
+        cityform = CityForm(request.POST)
+        if cityform.is_valid():
+            city = cityform.cleaned_data['city']
+            postcode = cityform.cleaned_data['postcode']
+            city = City.objects.create(
+                city=city, postcode=postcode)
+            return HttpResponseRedirect('/addpubications/')
+    else:
+        cityform = CityForm()
+    return render(request, 'addcity.html', {'cityform': cityform})
 
 
 @login_required(login_url='/login')

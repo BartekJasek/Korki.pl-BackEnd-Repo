@@ -1,7 +1,7 @@
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 from django.contrib.auth.models import User
-from django.core.validators import RegexValidator
+
 
 # Create your models here.
 
@@ -39,20 +39,14 @@ class Tutor(models.Model):
 class Subject(models.Model):
     subject = models.IntegerField(choices=SUBJECTS)
 
-    def __str__(self):
-        return self.subject
-
 
 class Calendar(models.Model):
     date = models.DateTimeField
 
 
 class City(models.Model):
-    city = models.CharField(max_length=32)
-    postcode = models.CharField(
-        max_length=6,
-        validators=[RegexValidator('^[0-9]{5}$')],
-    )
+    city = models.CharField(max_length=30)
+    postcode = models.CharField(max_length=6)
 
 
 class Publications(models.Model):
