@@ -34,7 +34,7 @@ def tutor(request):
 
 
 def publications(request):
-    publications = Publications.objects.get.all
+    publications = Publications.objects.all
     context = {'publications': publications}
     return render(request, 'publications.html', context)
 
@@ -48,7 +48,7 @@ def addcity(request):
             postcode = cityform.cleaned_data['postcode']
             city = City.objects.create(
                 city=city, postcode=postcode)
-            return HttpResponseRedirect('/addpubications/')
+            return HttpResponseRedirect('/addpublication/')
     else:
         cityform = CityForm()
     return render(request, 'addcity.html', {'cityform': cityform})
