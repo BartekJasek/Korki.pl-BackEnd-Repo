@@ -24,12 +24,8 @@ class TutorForm(ModelForm):
 
 class PublicationForm(ModelForm):
     subject = forms.ChoiceField(choices=Subject.SUBJECTS)
+    city = PLPostalCodeField()
 
     class Meta:
         model = Publications
         fields = ('price', 'subject', 'tutor', 'city')
-
-
-class CityForm(forms.Form):
-    city = forms.CharField(max_length=30)
-    postcode = PLPostalCodeField()

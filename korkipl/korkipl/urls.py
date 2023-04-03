@@ -24,7 +24,6 @@ urlpatterns = [
     path('tutor/<int:tutor_id>', views.tutor),
     path('publications/', views.publications),
     path('addpublication/', views.addpublication),
-    path('addcity/', views.addcity),
     path('addtutorinfo/', views.addtutorinfo),
     path('register/', views.register),
     path('admin/', admin.site.urls),

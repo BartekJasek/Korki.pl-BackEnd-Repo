@@ -3,8 +3,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 
-from .forms import RegisterForm, PublicationForm, TutorForm, CityForm
-from .models import Publications, City, Tutor
+from .forms import RegisterForm, PublicationForm, TutorForm
+from .models import Publications, Tutor
 
 
 # Create your views here.
@@ -17,14 +17,14 @@ def homepage(request):
 
 def register(request):
     if request.method == 'POST':
-        tutorform = RegisterForm(request.POST)
-        if tutorform.is_valid():
-            user = tutorform.save()
+        registerform = RegisterForm(request.POST)
+        if registerform.is_valid():
+            user = registerform.save()
             login(request, user)
             return redirect('/login/')
     else:
         tutorform = RegisterForm()
-    return render(request, 'registration/sign_up.html', {'tutorform': tutorform})
+    return render(request, 'registration/sign_up.html', {'registerform': registerform})
 
 
 def tutor(request):
@@ -37,21 +37,6 @@ def publications(request):
     publications = Publications.objects.all
     context = {'publications': publications}
     return render(request, 'publications.html', context)
-
-
-@login_required(login_url='/login')
-def addcity(request):
-    if request.method == 'POST':
-        cityform = CityForm(request.POST)
-        if cityform.is_valid():
-            city = cityform.cleaned_data['city']
-            postcode = cityform.cleaned_data['postcode']
-            city = City.objects.create(
-                city=city, postcode=postcode)
-            return HttpResponseRedirect('/addpublication/')
-    else:
-        cityform = CityForm()
-    return render(request, 'addcity.html', {'cityform': cityform})
 
 
 @login_required(login_url='/login')

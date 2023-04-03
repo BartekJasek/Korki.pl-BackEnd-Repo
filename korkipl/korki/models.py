@@ -44,11 +44,10 @@ class Calendar(models.Model):
 
 
 class City(models.Model):
-    city = models.CharField(max_length=30)
     postcode = models.CharField(max_length=6)
 
     def __str__(self):
-        return self.city
+        return self.postcode
 
 
 class Publications(models.Model):
