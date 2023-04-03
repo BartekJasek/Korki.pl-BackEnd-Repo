@@ -4,18 +4,18 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 
 from .forms import RegisterForm, PublicationForm, TutorForm, CityForm
-from .models import Publications, City
+from .models import Publications, City, Tutor
 
 
 # Create your views here.
 
 
-def Homepage(request):
+def homepage(request):
     context = {}
     return render(request, 'homepage.html', context)
 
 
-def Register(request):
+def register(request):
     if request.method == 'POST':
         tutorform = RegisterForm(request.POST)
         if tutorform.is_valid():
@@ -27,20 +27,20 @@ def Register(request):
     return render(request, 'registration/sign_up.html', {'tutorform': tutorform})
 
 
-def Tutor(request):
-    def get(self, request, tutor_id):
+def tutor(request):
+    def get(tutor_id):
         tutor = get_object_or_404(Tutor, id=tutor_id)
         return render(request, "tutor.html", {"tutor": tutor})
 
 
-def Publications(request):
+def publications(request):
     publications = Publications.objects.get.all
     context = {'publications': publications}
     return render(request, 'publications.html', context)
 
 
 @login_required(login_url='/login')
-def AddCity(request):
+def addcity(request):
     if request.method == 'POST':
         cityform = CityForm(request.POST)
         if cityform.is_valid():
@@ -55,7 +55,7 @@ def AddCity(request):
 
 
 @login_required(login_url='/login')
-def AddPublication(request):
+def addpublication(request):
     if request.method == 'POST':
         publicationform = PublicationForm(request.POST)
         if publicationform.is_valid():
@@ -72,7 +72,7 @@ def AddPublication(request):
 
 
 @login_required(login_url='/login')
-def AddTutorInfo(request):
+def addtutorinfo(request):
     if request.method == 'POST':
         tutorform = TutorForm(request.POST)
         if tutorform.is_valid():
