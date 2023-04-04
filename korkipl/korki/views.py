@@ -8,13 +8,11 @@ from .models import Publications, Tutor, Subject, City
 from django.contrib.auth.models import User
 
 
-
 # Create your views here.
 
 
 def homepage(request):
-    context = {}
-    return render(request, 'homepage.html', context)
+    return render(request, 'homepage.html')
 
 
 def register(request):
@@ -30,14 +28,16 @@ def register(request):
 
 
 def tutor(request, user_id):
-    user = get_object_or_404(User, id=user_id)
-    return render(request, "tutor.html", {"user": user})
+    return render(request, "tutor.html", {"user": get_object_or_404(User, id=user_id)})
 
 
-def publications(request):
-    publications = Publications.objects.all
-    context = {'publications': publications}
-    return render(request, 'publications.html', context)
+def noticeboard(request):
+    queryset = Subject.objects.all()
+    publications = Publications.objects.all()
+    for key in queryset:
+        subject = key
+    return render(request, 'publications.html', {'publications': publications,
+                                                 'subject': subject})
 
 
 @login_required(login_url='/login')

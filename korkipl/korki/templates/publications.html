@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{% for publication in publications %}
+    {% for publication in publications %}
         <div>
-            <p><b>Przedmiot: </b>{{ publication.publications_subject }}</p>
+            <p><b>Przedmiot: </b>{{ subject }}</p>
             <p><b>Cena: </b>{{ publication.price }} zł/h</p>
             <p><b>Korepetytor: </b>{{ publication.tutor.first_name }} {{ publication.tutor.last_name }}</p>
             <p><b>Miasto: </b>{{ publication.city }}</p>

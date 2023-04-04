@@ -22,7 +22,7 @@ urlpatterns = [
     path('', views.homepage,),
     path('login/', views.login),
     path('tutor/<int:user_id>', views.tutor, name="tutor"),
-    path('publications/', views.publications),
+    path('publications/', views.noticeboard),
     path('addpublication/', views.addpublication),
     path('addsubject/', views.addsubject),
     path('addcity/', views.addcity),
