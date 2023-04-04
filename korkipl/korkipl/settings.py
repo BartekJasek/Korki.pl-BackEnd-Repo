@@ -78,13 +78,12 @@ WSGI_APPLICATION = 'korkipl.wsgi.application'
 
 DATABASES = {
     'default': {
-        #'ENGINE': 'django.db.backends.sqlite3',
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'railway',
         'USER': 'postgres',
-        'PASSWORD': 'S3VKHeLYY8UYVZC6WFB6',
-        'HOST': 'containers-us-west-72.railway.app',
-        'PORT': '5751',
+        'PASSWORD': 'rAoJW75PtH5Ama56VcuD',
+        'HOST': 'containers-us-west-194.railway.app',
+        'PORT': '5976',
     }
 }
 

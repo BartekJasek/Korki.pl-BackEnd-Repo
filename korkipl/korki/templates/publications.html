@@ -3,10 +3,11 @@
 {% block content %}
 {% for publication in publications %}
         <div>
-            <p><b>Przedmiot: </b>{{ publication.subject }}</p>
+            <p><b>Przedmiot: </b>{{ publication.publications_subject }}</p>
             <p><b>Cena: </b>{{ publication.price }} zł/h</p>
-            <p><b>Korepetytor: </b>{{ publication.tutor }}</p><a href="/tutor/{{publications.tutor.user.id}}"><button type="button">O mnie</button></a>
+            <p><b>Korepetytor: </b>{{ publication.tutor.first_name }} {{ publication.tutor.last_name }}</p>
             <p><b>Miasto: </b>{{ publication.city }}</p>
+            <a href={% url 'tutor' publication.tutor.id %}><button type="button">O mnie</button></a>
         </div>
     {% endfor %}
 {% endblock %}

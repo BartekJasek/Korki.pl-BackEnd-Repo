@@ -36,7 +36,10 @@ class Subject(models.Model):
         ("j. rosysjki", "j. rosysjki"),
         ("j. niemiecki", "j. niemiecki"),
     )
-    subject = models.IntegerField(choices=SUBJECTS)
+    subject = models.CharField(max_length=25, choices=SUBJECTS)
+
+    def __str__(self):
+        return self.subject
 
 
 class Calendar(models.Model):
@@ -44,14 +47,15 @@ class Calendar(models.Model):
 
 
 class City(models.Model):
+    city = models.CharField(max_length=30)
     postcode = models.CharField(max_length=6)
 
     def __str__(self):
-        return self.postcode
+        return self.city
 
 
 class Publications(models.Model):
     price = models.IntegerField()
     subject = models.ManyToManyField(Subject)
     tutor = models.ForeignKey(User, on_delete=models.CASCADE)
-    city = models.OneToOneField(City, on_delete=models.CASCADE)
+    city = models.ForeignKey(City, on_delete=models.CASCADE)

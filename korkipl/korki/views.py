@@ -3,8 +3,10 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 
-from .forms import RegisterForm, PublicationForm, TutorForm
-from .models import Publications, Tutor
+from .forms import RegisterForm, PublicationForm, TutorForm, SubjectForm, AddCityForm
+from .models import Publications, Tutor, Subject, City
+from django.contrib.auth.models import User
+
 
 
 # Create your views here.
@@ -21,16 +23,15 @@ def register(request):
         if registerform.is_valid():
             user = registerform.save()
             login(request, user)
-            return redirect('/login/')
+            return redirect('/')
     else:
-        tutorform = RegisterForm()
+        registerform = RegisterForm()
     return render(request, 'registration/sign_up.html', {'registerform': registerform})
 
 
-def tutor(request):
-    def get(tutor_id):
-        tutor = get_object_or_404(Tutor, id=tutor_id)
-        return render(request, "tutor.html", {"tutor": tutor})
+def tutor(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    return render(request, "tutor.html", {"user": user})
 
 
 def publications(request):
@@ -49,7 +50,8 @@ def addpublication(request):
             tutor = publicationform.cleaned_data['tutor']
             city = publicationform.cleaned_data['city']
             publication = Publications.objects.create(
-                price=price, subject=subject, tutor=tutor, city=city)
+                price=price, tutor=tutor, city=city)
+            publication.subject.set(subject)
             return HttpResponseRedirect('/publications/')
     else:
         publicationform = PublicationForm()
@@ -71,3 +73,32 @@ def addtutorinfo(request):
     else:
         tutorform = TutorForm()
     return render(request, 'addtutorinfo.html', {'tutorform': tutorform})
+
+
+@login_required(login_url='/login')
+def addsubject(request):
+    if request.method == 'POST':
+        subjectform = SubjectForm(request.POST)
+        if subjectform.is_valid():
+            subject = subjectform.cleaned_data['subject']
+            subject = Subject.objects.create(
+                subject=subject)
+            return HttpResponseRedirect('/addpublication/')
+    else:
+        subjectform = SubjectForm()
+    return render(request, 'addsubject.html', {'subjectform': subjectform})
+
+
+@login_required(login_url='/login')
+def addcity(request):
+    if request.method == 'POST':
+        addcityform = AddCityForm(request.POST)
+        if addcityform.is_valid():
+            city = addcityform.cleaned_data['city']
+            postcode = addcityform.cleaned_data['postcode']
+            city = City.objects.create(
+                city=city, postcode=postcode)
+            return HttpResponseRedirect('/addsubject/')
+    else:
+        addcityform = AddCityForm()
+    return render(request, 'addcity.html', {'addcityform': addcityform})
