@@ -12,10 +12,12 @@ from django.contrib.auth.models import User
 
 
 def homepage(request):
+    # view of homepage which is empty for now
     return render(request, 'homepage.html')
 
 
 def register(request):
+    # view where new users are saved to database, this view use usercreationform from forms
     if request.method == 'POST':
         registerform = RegisterForm(request.POST)
         if registerform.is_valid():
@@ -28,10 +30,12 @@ def register(request):
 
 
 def tutor(request, user_id):
+    # this view show tutor detail on page
     return render(request, "tutor.html", {"user": get_object_or_404(User, id=user_id)})
 
 
 def noticeboard(request):
+    # noticeboard is view where all publications are showed on the page
     queryset = Subject.objects.all()
     publications = Publications.objects.all()
     for key in queryset:
@@ -42,6 +46,7 @@ def noticeboard(request):
 
 @login_required(login_url='/login')
 def addpublication(request):
+    # add new publications do database, this view can be used only if user is loged in
     if request.method == 'POST':
         publicationform = PublicationForm(request.POST)
         if publicationform.is_valid():
@@ -60,6 +65,7 @@ def addpublication(request):
 
 @login_required(login_url='/login')
 def addtutorinfo(request):
+    # add tutor details, this view can be used only if user is loged in
     if request.method == 'POST':
         tutorform = TutorForm(request.POST)
         if tutorform.is_valid():
@@ -77,6 +83,7 @@ def addtutorinfo(request):
 
 @login_required(login_url='/login')
 def addsubject(request):
+    # add subject to database from choices, this view can be used only if user is loged in
     if request.method == 'POST':
         subjectform = SubjectForm(request.POST)
         if subjectform.is_valid():
@@ -91,6 +98,7 @@ def addsubject(request):
 
 @login_required(login_url='/login')
 def addcity(request):
+    # add city to database, this view can be used only if user is loged in
     if request.method == 'POST':
         addcityform = AddCityForm(request.POST)
         if addcityform.is_valid():

@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 
 
 class Tutor(models.Model):
+    # model to create tutor details, tutor extends user
     user = models.OneToOneField(
         User,
         on_delete=models.CASCADE,
@@ -21,6 +22,7 @@ class Tutor(models.Model):
 
 
 class Subject(models.Model):
+    # model create for subjects, user choose one from choices
     SUBJECTS = (
         ("matematyka", "matematyka"),
         ("j. polski", "j. polski"),
@@ -47,6 +49,7 @@ class Calendar(models.Model):
 
 
 class City(models.Model):
+    # model to create new city
     city = models.CharField(max_length=30)
     postcode = models.CharField(max_length=6)
 
@@ -55,6 +58,7 @@ class City(models.Model):
 
 
 class Publications(models.Model):
+    # model to create new publications
     price = models.IntegerField()
     subject = models.ManyToManyField(Subject)
     tutor = models.ForeignKey(User, on_delete=models.CASCADE)
