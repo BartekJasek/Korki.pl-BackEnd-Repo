@@ -36,12 +36,8 @@ def tutor(request, user_id):
 
 def noticeboard(request):
     # noticeboard is view where all publications are showed on the page
-    queryset = Subject.objects.all()
     publications = Publications.objects.all()
-    for key in queryset:
-        subject = key
-    return render(request, 'publications.html', {'publications': publications,
-                                                 'subject': subject})
+    return render(request, 'publications.html', {'publications': publications})
 
 
 @login_required(login_url='/login')
