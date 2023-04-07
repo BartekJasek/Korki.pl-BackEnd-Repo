@@ -32,4 +32,4 @@ def test_publication_create():
     testcity = City.objects.create(city='Kielce', postcode='25-004')
     testsubject = Subject.objects.create(subject='biologia')
     publication = Publications.objects.create(price='120', tutor=testuser, city=testcity)
-    publication.subject.set(testsubject)
+    publication.subject.set([testsubject])
