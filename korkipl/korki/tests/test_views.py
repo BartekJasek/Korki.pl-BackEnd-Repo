@@ -5,42 +5,37 @@ import pytest
 from django.contrib.auth.models import User
 
 
-# django-test that test user register view
 @pytest.fixture
-def new_user_one(db):
-    def create_app_user(
-            username: str,
-            password: str = None,
-            first_name: str = 'firstname',
-            last_name: str = 'lastname',
-            email: str = 'test@test.com',
-            is_superuser: str = False,
-            is_active: str = True,
-    ):
-        user = User.objects.create_user(
-            username=username,
-            password=password,
-            first_name=first_name,
-            last_name=last_name,
-            email=email,
-            is_superuser=is_superuser,
-            is_active=is_active
-        )
-        return user
-    return create_app_user
+def client():
+    return Client()
 
 
-@pytest.fixture
-def user_one(db, new_user_one):
-    return new_user_one('testuser', 'password', 'somename', 'somelast', 'whatever@test.com', is_superuser='False',
-                        is_active='True')
+class TestViews(TestCase):
 
+    def test_tutor(self):
+        response = self.client.get(reverse('tutor', args=['1']))
+        self.assertEqual(response.status_code, 404) or (response.status_code, 200)
 
-def test_new_user(user_one):
-    assert user_one.username == 'testuser'
-    # assert user_one.password == 'password'
-    assert user_one.first_name == 'somename'
-    assert user_one.last_name == 'somelast'
-    assert user_one.email == 'whatever@test.com'
-    assert user_one.is_superuser
-    assert user_one.is_active
+    def test_noticeboard(self):
+        response = self.client.get(reverse('noticeboard'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_homepage(self):
+        response = self.client.get(reverse('homepage'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_addtutorinfo(self):
+        response = self.client.get(reverse('addtutorinfo'))
+        self.assertEqual(response.status_code, 302)
+
+    def test_addcity(self):
+        response = self.client.get(reverse('addcity'))
+        self.assertEqual(response.status_code, 302)
+
+    def test_addsubject(self):
+        response = self.client.get(reverse('addsubject'))
+        self.assertEqual(response.status_code, 302)
+
+    def test_addpublication(self):
+        response = self.client.get(reverse('addsubject'))
+        self.assertEqual(response.status_code, 302)
