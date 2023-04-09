@@ -7,6 +7,7 @@
             <p><b>Cena: </b>{{ publication.price }} zł/h</p>
             <p><b>Korepetytor: </b>{{ publication.tutor.first_name }} {{ publication.tutor.last_name }}</p>
             <p><b>Miasto: </b>{{ publication.city }}</p>
+            <p><b>Utworzono:: </b>{{ publication.create_date }}</p>
             <a href={% url 'tutor' publication.tutor.id %}><button type="button">O mnie</button></a>
         </div>
     {% endfor %}

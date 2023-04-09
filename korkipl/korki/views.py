@@ -4,7 +4,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 
 from .forms import RegisterForm, PublicationForm, TutorForm, SubjectForm, AddCityForm
-from .models import Publications, Tutor, Subject, City
+from .models import Publications, Tutor, Subject, City, Calendar
 from django.contrib.auth.models import User
 
 
@@ -43,6 +43,7 @@ def noticeboard(request):
 @login_required(login_url='/login')
 def addpublication(request):
     # add new publications do database, this view can be used only if user is loged in
+    # it also create new datetime(now) and add it to publication
     if request.method == 'POST':
         publicationform = PublicationForm(request.POST)
         if publicationform.is_valid():
@@ -50,8 +51,9 @@ def addpublication(request):
             subject = publicationform.cleaned_data['subject']
             tutor = publicationform.cleaned_data['tutor']
             city = publicationform.cleaned_data['city']
+            create_date = Calendar.objects.create()
             publication = Publications.objects.create(
-                price=price, tutor=tutor, city=city)
+                price=price, tutor=tutor, city=city, create_date=create_date)
             publication.subject.set(subject)
             return HttpResponseRedirect('/publications/')
     else:

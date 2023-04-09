@@ -45,7 +45,10 @@ class Subject(models.Model):
 
 
 class Calendar(models.Model):
-    date = models.DateTimeField
+    date = models.DateTimeField(auto_now_add=True)
+
+    def __date__(self):
+        return self.date
 
 
 class City(models.Model):
@@ -63,3 +66,4 @@ class Publications(models.Model):
     subject = models.ManyToManyField(Subject)
     tutor = models.ForeignKey(User, on_delete=models.CASCADE)
     city = models.ForeignKey(City, on_delete=models.CASCADE)
+    create_date = models.ForeignKey(Calendar, on_delete=models.CASCADE)

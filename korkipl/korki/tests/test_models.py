@@ -1,7 +1,7 @@
 import pytest
 
 from django.contrib.auth.models import User
-from korki.models import Publications, Tutor, Subject, City
+from korki.models import Publications, Tutor, Subject, City, Calendar
 
 
 @pytest.mark.django_db
@@ -27,9 +27,15 @@ def test_city_create():
 
 
 @pytest.mark.django_db
+def test_calendar_create():
+    Calendar.objects.create()
+
+
+@pytest.mark.django_db
 def test_publication_create():
     testuser = User.objects.create(username='test', email='test@test.pl', first_name='test', last_name='test')
     testcity = City.objects.create(city='Kielce', postcode='25-004')
     testsubject = Subject.objects.create(subject='biologia')
-    publication = Publications.objects.create(price='120', tutor=testuser, city=testcity)
+    test_createdate = Calendar.objects.create()
+    publication = Publications.objects.create(price='120', tutor=testuser, city=testcity, create_date=test_createdate)
     publication.subject.set([testsubject])
