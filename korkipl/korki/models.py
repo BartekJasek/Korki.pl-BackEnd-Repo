@@ -47,7 +47,7 @@ class Subject(models.Model):
 class Calendar(models.Model):
     date = models.DateTimeField(auto_now_add=True)
 
-    def __date__(self):
+    def __get_costam_display__(self):
         return self.date
 
 

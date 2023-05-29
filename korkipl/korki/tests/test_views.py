@@ -39,3 +39,4 @@ class TestViews(TestCase):
     def test_addpublication(self):
         response = self.client.get(reverse('addsubject'))
         self.assertEqual(response.status_code, 302)
+
